@@ -23,6 +23,7 @@ namespace Intelektika_1PD
         
         private void Calculate_Click(object sender, EventArgs e)
         {
+
             var s = new Stopwatch();
             bool method = (radioMethod1.Checked || radioMethod2.Checked);
             if (method == false)
@@ -182,6 +183,15 @@ namespace Intelektika_1PD
                     PointsTo.Items.Add(data[i]);
                     PointsTo.Items[i/2].SubItems.Add(data[i + 1]);
                 }
+            }
+            List<ChartPoints> chartPoints = new List<ChartPoints>();
+            for (int i=0; i<count.Count;i=i+3)
+            {
+                chartPoints.Add(new ChartPoints { X = Int32.Parse(count[i]), Y = Int32.Parse(count[i + 1])});
+            }
+            foreach(ChartPoints f in chartPoints)
+            {
+                chart1.Series["Series1"].Points.AddXY(f.X, f.Y);
             }
         }
     }
