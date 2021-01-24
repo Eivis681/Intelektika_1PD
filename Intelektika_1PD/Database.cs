@@ -57,6 +57,15 @@ namespace Intelektika_1PD
             sqlite_conn.Close();
         }
 
+        public void addPoint(string X, string Y, string klass)
+        {
+            sqlite_conn.Open();
+            SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "INSERT INTO Points (X, Y, Class) VALUES('" + X + "' ,'" + Y + "','" + klass + "'); ";
+            sqlite_cmd.ExecuteNonQuery();
+            sqlite_conn.Close();
+        }
+
         public void deleteFromPointsTo(string X, string Y)
         {
             sqlite_conn.Open();

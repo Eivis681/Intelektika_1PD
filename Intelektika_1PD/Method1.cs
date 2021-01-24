@@ -1,56 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Intelektika_1PD
 {
     public class Method1
     {
-        public string calculateData(string X, string Y, string Neib)
+        public List<Data> calculateData(string X, string Y, string Neib)
         {
             Database database = new Database();
             List<string> pointsData = database.getData();
             List<int> pointsFromDb = new List<int>();
             List<string> plusMinusList = new List<string>();
-            for (int i = 0; i<pointsData.Count;i=i+3)
+            for (int i = 0; i < pointsData.Count; i = i + 3)
             {
                 pointsFromDb.Add(Int32.Parse(pointsData[i]));
-                pointsFromDb.Add(Int32.Parse(pointsData[i+1]));
+                pointsFromDb.Add(Int32.Parse(pointsData[i + 1]));
                 plusMinusList.Add(pointsData[i + 2]);
             }
             int x = Int32.Parse(X);
             int y = Int32.Parse(Y);
             int neib = Int32.Parse(Neib);
             List<double> results = new List<double>();
-            for (int i =0; i<pointsFromDb.Count;i=i+2)
+            for (int i = 0; i < pointsFromDb.Count; i = i + 2)
             {
-                double res = Math.Sqrt((Math.Pow(x - pointsFromDb[i], 2)) + (Math.Pow(y - pointsFromDb[i+1], 2)));
+                double res = Math.Sqrt((Math.Pow(x - pointsFromDb[i], 2)) + (Math.Pow(y - pointsFromDb[i + 1], 2)));
                 results.Add(res);
             }
-            List<double> sortedList = results.OrderBy(result => result).ToList();
-            List<string> sortedStringList = new List<string>();
-            for(int i = 0; i<plusMinusList.Count;i++)
+            List<Item> items = new List<Item>();
+            for (int i = 0; i < plusMinusList.Count; i++)
             {
-                for (int k = 0; k<sortedList.Count;k++)
+                items.Add(new Item { result = results[i], klass = plusMinusList[i] });
+            }
+            List<Item> sortedItemList = items.OrderBy(o => o.result).ToList();
+            for (int i = 0; i < sortedItemList.Count; i++)
+            {
+                if (i == sortedItemList.Count - 1)
                 {
-                    if (sortedList[k]==results[i])
+
+                }
+                else if (sortedItemList[i].result == sortedItemList[i + 1].result)
+                {
+                    if (sortedItemList[i].klass != sortedItemList[i + 1].klass)
                     {
-                        sortedStringList.Add(sortedList[i].ToString());
-                        sortedStringList.Add(plusMinusList[k]);
-                        
+                        if (neib > i)
+                        {
+                            neib = neib - 1;
+                        }
+                        sortedItemList.RemoveAt(i);
+                        sortedItemList.RemoveAt(i);
+                        sortedItemList.Add(new Item { result = 0, klass = "asd" });
+                        i = i - 1;
                     }
                 }
             }
-            List<string> finalResultList = new List<string>();
-            for (int i =0;i<neib;i++)
+            int plustCount = 0;
+            int minusCount = 0;
+            for (int i = 0; i < neib; i++)
             {
-
-                finalResultList.Add(sortedList[i].ToString());
-
+                if (sortedItemList[i].klass == "+")
+                {
+                    plustCount++;
+                }
+                else if (sortedItemList[i].klass == "-")
+                {
+                    minusCount++;
+                }
             }
-            return X;
+            List<Data> finalResult = new List<Data>();
+            if (plustCount == minusCount)
+            {
+                finalResult.Add(new Data { X = x, Y = y, klass = "no" });
+            }
+            else if (plustCount > minusCount)
+            {
+                finalResult.Add(new Data { X = x, Y = y, klass = "+" });
+            }
+            else if (plustCount < minusCount)
+            {
+                finalResult.Add(new Data { X = x, Y = y, klass = "-" });
+            }
+            return finalResult;
         }
     }
 }

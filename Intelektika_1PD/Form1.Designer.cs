@@ -31,25 +31,27 @@
             this.Calculate = new System.Windows.Forms.Button();
             this.neibCombo = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.method2 = new System.Windows.Forms.RadioButton();
-            this.method1 = new System.Windows.Forms.RadioButton();
+            this.radioMethod2 = new System.Windows.Forms.RadioButton();
+            this.radioMethod1 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pointCombo = new System.Windows.Forms.ComboBox();
             this.AllPoints = new System.Windows.Forms.ListView();
             this.X = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Y = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Class = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.PointsTo = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textBoxX = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.Class = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.Add = new System.Windows.Forms.Button();
             this.textBoxY = new System.Windows.Forms.TextBox();
+            this.timeLabel = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,8 +75,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.method2);
-            this.groupBox1.Controls.Add(this.method1);
+            this.groupBox1.Controls.Add(this.radioMethod2);
+            this.groupBox1.Controls.Add(this.radioMethod1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(178, 47);
@@ -82,27 +84,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Methods";
             // 
-            // method2
+            // radioMethod2
             // 
-            this.method2.AutoSize = true;
-            this.method2.Location = new System.Drawing.Point(82, 19);
-            this.method2.Name = "method2";
-            this.method2.Size = new System.Drawing.Size(70, 17);
-            this.method2.TabIndex = 3;
-            this.method2.TabStop = true;
-            this.method2.Text = "Method 2";
-            this.method2.UseVisualStyleBackColor = true;
+            this.radioMethod2.AutoSize = true;
+            this.radioMethod2.Location = new System.Drawing.Point(82, 19);
+            this.radioMethod2.Name = "radioMethod2";
+            this.radioMethod2.Size = new System.Drawing.Size(70, 17);
+            this.radioMethod2.TabIndex = 3;
+            this.radioMethod2.TabStop = true;
+            this.radioMethod2.Text = "Method 2";
+            this.radioMethod2.UseVisualStyleBackColor = true;
             // 
-            // method1
+            // radioMethod1
             // 
-            this.method1.AutoSize = true;
-            this.method1.Location = new System.Drawing.Point(6, 19);
-            this.method1.Name = "method1";
-            this.method1.Size = new System.Drawing.Size(70, 17);
-            this.method1.TabIndex = 4;
-            this.method1.TabStop = true;
-            this.method1.Text = "Method 1";
-            this.method1.UseVisualStyleBackColor = true;
+            this.radioMethod1.AutoSize = true;
+            this.radioMethod1.Location = new System.Drawing.Point(6, 19);
+            this.radioMethod1.Name = "radioMethod1";
+            this.radioMethod1.Size = new System.Drawing.Size(70, 17);
+            this.radioMethod1.TabIndex = 4;
+            this.radioMethod1.TabStop = true;
+            this.radioMethod1.Text = "Method 1";
+            this.radioMethod1.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -139,7 +141,7 @@
             this.AllPoints.HideSelection = false;
             this.AllPoints.Location = new System.Drawing.Point(235, 24);
             this.AllPoints.Name = "AllPoints";
-            this.AllPoints.Size = new System.Drawing.Size(183, 139);
+            this.AllPoints.Size = new System.Drawing.Size(196, 139);
             this.AllPoints.TabIndex = 6;
             this.AllPoints.UseCompatibleStateImageBehavior = false;
             this.AllPoints.View = System.Windows.Forms.View.Details;
@@ -153,6 +155,10 @@
             this.Y.Text = "Y";
             this.Y.Width = 69;
             // 
+            // Class
+            // 
+            this.Class.Text = "Class";
+            // 
             // PointsTo
             // 
             this.PointsTo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -165,6 +171,14 @@
             this.PointsTo.TabIndex = 7;
             this.PointsTo.UseCompatibleStateImageBehavior = false;
             this.PointsTo.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "X";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Y";
             // 
             // textBoxX
             // 
@@ -190,18 +204,6 @@
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "Points To:";
-            // 
-            // Class
-            // 
-            this.Class.Text = "Class";
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "X";
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Y";
             // 
             // label5
             // 
@@ -238,11 +240,21 @@
             this.textBoxY.Size = new System.Drawing.Size(42, 20);
             this.textBoxY.TabIndex = 15;
             // 
+            // timeLabel
+            // 
+            this.timeLabel.AutoSize = true;
+            this.timeLabel.Location = new System.Drawing.Point(34, 158);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(84, 13);
+            this.timeLabel.TabIndex = 16;
+            this.timeLabel.Text = "Calculation time:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(821, 212);
+            this.ClientSize = new System.Drawing.Size(689, 508);
+            this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.textBoxY);
             this.Controls.Add(this.Add);
             this.Controls.Add(this.label6);
@@ -272,8 +284,8 @@
         private System.Windows.Forms.Button Calculate;
         private System.Windows.Forms.ComboBox neibCombo;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton method2;
-        private System.Windows.Forms.RadioButton method1;
+        private System.Windows.Forms.RadioButton radioMethod2;
+        private System.Windows.Forms.RadioButton radioMethod1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox pointCombo;
@@ -291,6 +303,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button Add;
         private System.Windows.Forms.TextBox textBoxY;
+        private System.Windows.Forms.Label timeLabel;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 
