@@ -48,7 +48,7 @@ namespace Intelektika_1PD
                 Method1 method1 = new Method1();
                 
                 s.Start();
-                List<Data> res = method1.calculateData(split[1], split[3], neibCombo.Text);
+                List<Data> res = method1.calculateData(split[1], split[3], split[5], neibCombo.Text);
                 s.Stop();
                 
                 timeLabel.Text = "Calculation time: " + s.ElapsedMilliseconds + " ms";
@@ -63,8 +63,8 @@ namespace Intelektika_1PD
                     if (dr == DialogResult.Yes)
                     {
                         Database database = new Database();
-                        database.addPoint(res[0].X.ToString(), res[0].Y.ToString(), res[0].klass);
-                        database.deleteFromPointsTo(res[0].X.ToString(), res[0].Y.ToString());
+                        database.addPoint(res[0].X.ToString(), res[0].Y.ToString(), res[0].klass, res[0].Z.ToString());
+                        database.deleteFromPointsTo(res[0].X.ToString(), res[0].Y.ToString(), res[0].Z.ToString());
                         updateInterface();
                     }
                 }
@@ -74,8 +74,8 @@ namespace Intelektika_1PD
                     if (dr == DialogResult.Yes)
                     {
                         Database database = new Database();
-                        database.addPoint(res[0].X.ToString(), res[0].Y.ToString(), res[0].klass);
-                        database.deleteFromPointsTo(res[0].X.ToString(), res[0].Y.ToString());
+                        database.addPoint(res[0].X.ToString(), res[0].Y.ToString(), res[0].klass, res[0].Z.ToString());
+                        database.deleteFromPointsTo(res[0].X.ToString(), res[0].Y.ToString(), res[0].Z.ToString());
                         updateInterface();
                     }
                 }
@@ -86,7 +86,7 @@ namespace Intelektika_1PD
                 string asd = pointCombo.Text;
                 string[] split = asd.Split(':');
                 s.Start();
-                List<Data> res = method2.calculateData(split[1], split[3], neibCombo.Text);
+                List<Data> res = method2.calculateData(split[1], split[3], split[5], neibCombo.Text);
                 s.Stop();
 
                 timeLabel.Text = "Calculation time: " + s.ElapsedMilliseconds + " ms";
@@ -100,8 +100,8 @@ namespace Intelektika_1PD
                     if (dr == DialogResult.Yes)
                     {
                         Database database = new Database();
-                        database.addPoint(res[0].X.ToString(), res[0].Y.ToString(), res[0].klass);
-                        database.deleteFromPointsTo(res[0].X.ToString(), res[0].Y.ToString());
+                        database.addPoint(res[0].X.ToString(), res[0].Y.ToString(), res[0].klass, res[0].Z.ToString());
+                        database.deleteFromPointsTo(res[0].X.ToString(), res[0].Y.ToString(), res[0].Z.ToString());
                         updateInterface();
                     }
                 }
@@ -111,8 +111,8 @@ namespace Intelektika_1PD
                     if (dr == DialogResult.Yes)
                     {
                         Database database = new Database();
-                        database.addPoint(res[0].X.ToString(), res[0].Y.ToString(), res[0].klass);
-                        database.deleteFromPointsTo(res[0].X.ToString(), res[0].Y.ToString());
+                        database.addPoint(res[0].X.ToString(), res[0].Y.ToString(), res[0].klass, res[0].Z.ToString());
+                        database.deleteFromPointsTo(res[0].X.ToString(), res[0].Y.ToString(), res[0].Z.ToString());
                         updateInterface();
                     }
                 }
@@ -131,8 +131,13 @@ namespace Intelektika_1PD
                 MessageBox.Show("Please fill in Y value");
                 return;
             }
+            if (string.IsNullOrEmpty(textBoxZ.Text))
+            {
+                MessageBox.Show("Please fill in Z value");
+                return;
+            }
             Database database = new Database();
-            database.addToPoints(textBoxX.Text,textBoxY.Text);
+            database.addToPoints(textBoxX.Text, textBoxY.Text, textBoxZ.Text);
             updateInterface();
         }
         public void updateInterface()
@@ -145,54 +150,65 @@ namespace Intelektika_1PD
             neibCombo.Text = null;
             Database database = new Database();
             List<string> data = database.getDataPoints();
-            for (int i = 0; i < data.Count; i = i + 2)
+            for (int i = 0; i < data.Count; i = i + 3)
             {
-                string point = "X: " + data[i] + ": " + "Y: " + data[i + 1];
+                string point = "X: " + data[i] + ": " + "Y: " + data[i + 1] + ": " + "Z: " + data[i + 2];
                 pointCombo.Items.Add(point);
             }
             List<string> count = database.getData();
-            int c = count.Count / 3;
+            int c = count.Count / 4;
             for (int i = 1; i <= c; i++)
             {
                 neibCombo.Items.Add(i);
             }
-            for (int i = 0; i<count.Count;i=i+3)
+            for (int i = 0; i<count.Count;i=i+4)
             {
                 if (i==0)
                 {
                     AllPoints.Items.Add(count[i]);
                     AllPoints.Items[i].SubItems.Add(count[i+1]);
                     AllPoints.Items[i].SubItems.Add(count[i + 2]);
+                    AllPoints.Items[i].SubItems.Add(count[i + 3]);
                 }
                 else
                 {
                     AllPoints.Items.Add(count[i]);
-                    AllPoints.Items[i/3].SubItems.Add(count[i + 1]);
-                    AllPoints.Items[i/3].SubItems.Add(count[i + 2]);
+                    AllPoints.Items[i/4].SubItems.Add(count[i + 1]);
+                    AllPoints.Items[i/4].SubItems.Add(count[i + 2]);
+                    AllPoints.Items[i / 4].SubItems.Add(count[i + 3]);
                 }
             }
-            for (int i = 0; i<data.Count;i=i+2)
+            for (int i = 0; i<data.Count;i=i+3)
             {
                 if (i == 0)
                 {
                     PointsTo.Items.Add(data[i]);
                     PointsTo.Items[i].SubItems.Add(data[i + 1]);
+                    PointsTo.Items[i].SubItems.Add(data[i + 2]);
                 }
                 else
                 {
                     PointsTo.Items.Add(data[i]);
-                    PointsTo.Items[i/2].SubItems.Add(data[i + 1]);
+                    PointsTo.Items[i/3].SubItems.Add(data[i + 1]);
+                    PointsTo.Items[i / 3].SubItems.Add(data[i + 2]);
                 }
             }
             List<ChartPoints> chartPoints = new List<ChartPoints>();
-            for (int i=0; i<count.Count;i=i+3)
-            {
-                chartPoints.Add(new ChartPoints { X = Int32.Parse(count[i]), Y = Int32.Parse(count[i + 1])});
-            }
-            foreach(ChartPoints f in chartPoints)
-            {
-                chart1.Series["Series1"].Points.AddXY(f.X, f.Y);
-            }
+            
+            //for (int i = 0; i < count.Count; i = i + 3)
+            //{
+            //    chartPoints.Add(new ChartPoints { X = Int32.Parse(count[i]), Y = Int32.Parse(count[i + 1]), Z = Int32.Parse(count[i+2]) });
+            //}
+            //foreach (ChartPoints f in chartPoints)
+            //{
+            //    chart1.Series["Series1"].Points.AddXY(f.X, f.Y);
+                
+            //}
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

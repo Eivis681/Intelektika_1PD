@@ -42,10 +42,12 @@
             this.AllPoints = new System.Windows.Forms.ListView();
             this.X = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Y = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Z = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Class = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.PointsTo = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textBoxX = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -56,6 +58,8 @@
             this.timeLabel = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.textBoxZ = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
@@ -142,11 +146,12 @@
             this.AllPoints.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.X,
             this.Y,
+            this.Z,
             this.Class});
             this.AllPoints.HideSelection = false;
             this.AllPoints.Location = new System.Drawing.Point(235, 24);
             this.AllPoints.Name = "AllPoints";
-            this.AllPoints.Size = new System.Drawing.Size(196, 139);
+            this.AllPoints.Size = new System.Drawing.Size(251, 139);
             this.AllPoints.TabIndex = 6;
             this.AllPoints.UseCompatibleStateImageBehavior = false;
             this.AllPoints.View = System.Windows.Forms.View.Details;
@@ -158,7 +163,11 @@
             // Y
             // 
             this.Y.Text = "Y";
-            this.Y.Width = 69;
+            this.Y.Width = 59;
+            // 
+            // Z
+            // 
+            this.Z.Text = "Z";
             // 
             // Class
             // 
@@ -168,9 +177,10 @@
             // 
             this.PointsTo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader3});
             this.PointsTo.HideSelection = false;
-            this.PointsTo.Location = new System.Drawing.Point(472, 24);
+            this.PointsTo.Location = new System.Drawing.Point(518, 24);
             this.PointsTo.Name = "PointsTo";
             this.PointsTo.Size = new System.Drawing.Size(182, 139);
             this.PointsTo.TabIndex = 7;
@@ -185,9 +195,13 @@
             // 
             this.columnHeader2.Text = "Y";
             // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Z";
+            // 
             // textBoxX
             // 
-            this.textBoxX.Location = new System.Drawing.Point(472, 180);
+            this.textBoxX.Location = new System.Drawing.Point(522, 180);
             this.textBoxX.Name = "textBoxX";
             this.textBoxX.Size = new System.Drawing.Size(42, 20);
             this.textBoxX.TabIndex = 8;
@@ -204,7 +218,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(469, 8);
+            this.label4.Location = new System.Drawing.Point(490, 8);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 10;
@@ -213,7 +227,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(469, 166);
+            this.label5.Location = new System.Drawing.Point(519, 166);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 13);
             this.label5.TabIndex = 12;
@@ -222,7 +236,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(528, 166);
+            this.label6.Location = new System.Drawing.Point(578, 166);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(17, 13);
             this.label6.TabIndex = 13;
@@ -230,7 +244,7 @@
             // 
             // Add
             // 
-            this.Add.Location = new System.Drawing.Point(579, 178);
+            this.Add.Location = new System.Drawing.Point(686, 177);
             this.Add.Name = "Add";
             this.Add.Size = new System.Drawing.Size(75, 23);
             this.Add.TabIndex = 14;
@@ -240,7 +254,7 @@
             // 
             // textBoxY
             // 
-            this.textBoxY.Location = new System.Drawing.Point(531, 180);
+            this.textBoxY.Location = new System.Drawing.Point(581, 180);
             this.textBoxY.Name = "textBoxY";
             this.textBoxY.Size = new System.Drawing.Size(42, 20);
             this.textBoxY.TabIndex = 15;
@@ -260,22 +274,45 @@
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(18, 221);
+            this.chart1.Location = new System.Drawing.Point(12, 311);
             this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             series1.Legend = "Legend1";
+            series1.MarkerColor = System.Drawing.Color.OrangeRed;
+            series1.MarkerSize = 10;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(659, 275);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
+            this.chart1.Click += new System.EventHandler(this.chart1_Click);
+            // 
+            // textBoxZ
+            // 
+            this.textBoxZ.Location = new System.Drawing.Point(638, 180);
+            this.textBoxZ.Name = "textBoxZ";
+            this.textBoxZ.Size = new System.Drawing.Size(42, 20);
+            this.textBoxZ.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(635, 166);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(17, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Z:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(689, 508);
+            this.ClientSize = new System.Drawing.Size(770, 216);
+            this.Controls.Add(this.textBoxZ);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.textBoxY);
@@ -330,6 +367,10 @@
         private System.Windows.Forms.Label timeLabel;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.ColumnHeader Z;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.TextBox textBoxZ;
+        private System.Windows.Forms.Label label7;
     }
 }
 
